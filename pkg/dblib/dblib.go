@@ -7,7 +7,7 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/driver/postgres"
 
-	"selatoz/pkg/cfglib"
+	"github.com/selatoz/gateway/pkg/cfglib"
 )
 
 func NewDatabase(config *cfglib.Config) (*gorm.DB, error) {

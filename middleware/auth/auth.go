@@ -7,9 +7,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"selatoz/pkg/cfglib"
-	"selatoz/validation/http"
-	"selatoz/internal/token/svc"
+	"github.com/selatoz/gateway/pkg/cfglib"
+	"github.com/selatoz/gateway/validation/http"
+	"github.com/selatoz/gateway/internal/token/svc"
 )
 
 // Define constants

@@ -6,10 +6,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"selatoz/validation/http"
-	"selatoz/middleware/auth"
-	"selatoz/internal/user/svc"
-	"selatoz/internal/token/svc"
+	"github.com/selatoz/gateway/validation/http"
+	"github.com/selatoz/gateway/middleware/auth"
+	"github.com/selatoz/gateway/internal/user/svc"
+	"github.com/selatoz/gateway/internal/token/svc"
 )
 
 // Set constants

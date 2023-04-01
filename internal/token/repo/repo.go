@@ -6,7 +6,7 @@ import (
 
 	"gorm.io/gorm"
 
-	"selatoz/internal/user/repo"
+	"github.com/selatoz/gateway/internal/user/repo"
 )
 
 // File handles data logic related to access and refresh tokens

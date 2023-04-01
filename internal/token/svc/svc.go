@@ -8,9 +8,9 @@ import (
 	"gorm.io/gorm"
 	"github.com/dgrijalva/jwt-go"
 
-	"selatoz/pkg/cfglib"
-	"selatoz/internal/token/repo"
-	"selatoz/internal/user/repo"
+	"github.com/selatoz/gateway/pkg/cfglib"
+	"github.com/selatoz/gateway/internal/token/repo"
+	"github.com/selatoz/gateway/internal/user/repo"
 )
 
 // Define constants

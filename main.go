@@ -3,13 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/gin-gonic/gin"
-	// "github.com/selatoz/gateway/pkg/cfglib"
-	// "github.com/selatoz/gateway/pkg/dblib"
-	
-	"selatoz/pkg/cfglib"
-	"selatoz/pkg/dblib"
-	"selatoz/routes"
+	"github.com/gin-gonic/gin"	
+	"github.com/selatoz/gateway/pkg/cfglib"
+	"github.com/selatoz/gateway/pkg/dblib"
+	"github.com/selatoz/gateway/internal/routes"
 )
 
 // var db = make(map[string]string)

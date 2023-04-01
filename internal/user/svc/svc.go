@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 	"golang.org/x/crypto/bcrypt"
 
-	"selatoz/internal/user/repo"
+	"github.com/selatoz/gateway/internal/user/repo"
 )
 
 // Define errors
