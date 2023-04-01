@@ -10,14 +10,15 @@ import (
 // This defines a User struct that represents a user record
 type User struct {
 	gorm.Model
-	Email string 		`json:"email",gorm:"uniqueIndex;index"`
-	Password string	`json:"password"`
+	Email 		string 	`json:"email",gorm:"uniqueIndex;index"`
+	Password 	string	`json:"password"`
 }
 
 // Repository provides methods for interacting with the profiles in the database
 type Repo interface {
 	GetByEmail(email string) (*User, error)
 	GetById(userID uint) (*User, error)
+	NewUser(email string, password string) (*User, error)
 }
 
 type repo struct {
@@ -48,4 +49,21 @@ func (r *repo) GetById(userID uint) (*User, error) {
 	}
 
 	return &user, nil
+}
+
+// NewUser creates a new user record
+func (r *repo) NewUser(email string, password string) (*User, error) {
+	// Create a new user object
+	u := User{
+		Email:    email,
+		Password: password,
+	}
+
+	// Insert the user into the database
+	err := r.db.Create(&u).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &u, nil
 }
