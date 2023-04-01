@@ -2,7 +2,9 @@ package cfglib
 
 import (
 	"os"
+	"fmt"
 	"path/filepath"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -47,17 +49,17 @@ func Load() (error) {
 		AppName:          os.Getenv("APP_NAME"),
 		AppSecret:        os.Getenv("APP_SECRET"),
 		AppDebug:         os.Getenv("APP_DEBUG") == "true",
-		AppPort:          8080,
+		AppPort:          strToInt(os.Getenv("APP_PORT")),
 		GinMode:				os.Getenv("GIN_MODE"),
 
 		DBHost:           os.Getenv("DB_HOST"),
-		DBPort:           5432,
+		DBPort:           strToInt(os.Getenv("DB_PORT")),
 		DBName:           os.Getenv("DB_NAME"),
 		DBUser:           os.Getenv("DB_USER"),
 		DBPassword:       os.Getenv("DB_PASSWORD"),
 
-		TokenExpAccess:  0.01, 	// In hours
-		TokenExpRefresh: 168,	// In hours
+		TokenExpAccess:  strToFloat32(os.Getenv("TOKEN_EXP_ACCESS")),
+		TokenExpRefresh: strToFloat32(os.Getenv("TOKEN_EXP_REFRESH")),
   	}
 
 	// Set the app mode
@@ -67,4 +69,22 @@ func Load() (error) {
 
 	// Handle return
 	return nil
+}
+
+func strToInt(str string) (int) {
+	n, err := strconv.ParseInt(str, 10, 0)
+	if err != nil {
+		panic(fmt.Errorf("could not convert string '%s' to int: %s", str, err))
+	}
+
+	return int(n)
+}
+
+func strToFloat32(str string) (float32) {
+	n, err := strconv.ParseFloat(str, 32)
+	if err != nil {
+		panic(fmt.Errorf("could not convert string '%s' to float64: %s", str, err))
+	}
+
+	return float32(n)
 }
