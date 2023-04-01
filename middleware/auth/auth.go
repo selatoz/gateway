@@ -7,7 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"selatoz/config"
+	"selatoz/pkg/cfglib"
 	"selatoz/validation/http"
 	"selatoz/internal/token/svc"
 )
@@ -50,7 +50,7 @@ func Authorize(tokenService tokenSvc.Svc) gin.HandlerFunc {
 			// Check if the error is due to an expired token
 			if err.Error() == tokenSvc.ErrTokenExpired {
 				// Challenge the client to send the refresh token
-				c.Writer.Header().Set(HeaderChallengeAuthorization, fmt.Sprintf(ChallengeExpiredAccessToken, config.DefaultConf.AppName))
+				c.Writer.Header().Set(HeaderChallengeAuthorization, fmt.Sprintf(ChallengeExpiredAccessToken, cfglib.DefaultConf.AppName))
 				c.AbortWithStatusJSON(http.StatusUnauthorized, validHttp.ErrorResponse{Error: err.Error()})
 				return
 		  }

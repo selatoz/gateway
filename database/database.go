@@ -1,20 +1,22 @@
 package database
 
 import (
-    "fmt"
-    "time"
-	 
-    "gorm.io/gorm"
-	 "gorm.io/driver/mysql"
+	"fmt"
+	"time"
+	
+	"gorm.io/gorm"
+	"gorm.io/driver/postgres"
 
-    "selatoz/config"
+	"selatoz/pkg/cfglib"
 )
 
-func NewDatabase(cfg *config.Config) (*gorm.DB, error) {
+func NewDatabase() (*gorm.DB, error) {
 	// Connect to the database
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		cfg.DBUser, cfg.DBPassword, cfg.DBHost, cfg.DBPort, cfg.DBName)
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", cfglib.DefaultConf.DBHost, cfglib.DefaultConf.DBPort, cfglib.DefaultConf.DBUser, cfglib.DefaultConf.DBPassword, cfglib.DefaultConf.DBName)
+	// The commented line is for mysql
+	// dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local", cfglib.DefaultConf.DBUser, cfglib.DefaultConf.DBPassword, cfglib.DefaultConf.DBHost, cfglib.DefaultConf.DBPort, cfglib.DefaultConf.DBName)
+	
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}

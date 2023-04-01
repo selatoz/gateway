@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 	"github.com/dgrijalva/jwt-go"
 
-	"selatoz/config"
+	"selatoz/pkg/cfglib"
 	"selatoz/internal/token/repo"
 	"selatoz/internal/user/repo"
 )
@@ -90,8 +90,8 @@ func (s *svc) GenerateTokens(userID uint, userAgent string) (*tokenRepo.AccessTo
  */
 func (s *svc) GenerateAccessToken(userID uint, refreshTokenID uint, userAgent string) (*tokenRepo.AccessToken, error) {
 	// Load configs
-	secretKey := config.DefaultConf.AppSecret
-	tokenExpiration := time.Duration(config.DefaultConf.TokenExpAccess)
+	secretKey := cfglib.DefaultConf.AppSecret
+	tokenExpiration := time.Duration(cfglib.DefaultConf.TokenExpAccess)
 	expiresAt := time.Unix(time.Now().Add(tokenExpiration * time.Hour).Unix(), 0)
 
 	// Generate a new JWT token
@@ -120,8 +120,8 @@ func (s *svc) GenerateAccessToken(userID uint, refreshTokenID uint, userAgent st
  */
  func (s *svc) GenerateRefreshToken(userID uint, userAgent string) (*tokenRepo.RefreshToken, error) {
 	// Load configs
-	secretKey := config.DefaultConf.AppSecret
-	tokenExpiration := time.Duration(config.DefaultConf.TokenExpRefresh)
+	secretKey := cfglib.DefaultConf.AppSecret
+	tokenExpiration := time.Duration(cfglib.DefaultConf.TokenExpRefresh)
 	expiresAt := time.Unix(time.Now().Add(tokenExpiration * time.Hour).Unix(), 0)
 
 	// Generate a new JWT token
@@ -164,7 +164,7 @@ func (s *svc) DeleteRefreshToken(token string) (error) {
  */
 func (s *svc) ValidateToken(token string, allowExpired bool) (uint, string, error) {
 	// Load configs
-	secretKey := config.DefaultConf.AppSecret
+	secretKey := cfglib.DefaultConf.AppSecret
 
 	// Remove "Bearer " prefix from token
 	token = strings.TrimPrefix(token, "Bearer ")

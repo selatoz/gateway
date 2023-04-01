@@ -4,9 +4,11 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
-
-	"selatoz/config"
-	"selatoz/database"
+	// "github.com/selatoz/gateway/pkg/cfglib"
+	// "github.com/selatoz/gateway/pkg/dblib"
+	
+	"selatoz/pkg/cfglib"
+	"selatoz/pkg/dblib"
 	"selatoz/routes"
 )
 
@@ -14,21 +16,21 @@ import (
 
 func main() {
 	// Initialize configuration
-	conf, err := config.Init("default.yaml");
+	err := cfglib.Load();
 	if err != nil {
 		panic(fmt.Errorf("failed to initialize configuration: %w", err))
 	}
 
 	// Initialize the database
-	db, err := database.NewDatabase(conf)
+	db, err := dblib.NewDatabase(cfglib.DefaultConf)
 	if err != nil {
 		panic(fmt.Errorf("failed to initialize database: %w", err))
 	}
 
 	// Initialize the routes
 	router := gin.Default()
-	routes.Init(router, db)
+	routes.NewRoutes(router, db)
 
 	// Listen and Server in 0.0.0.0:8080
-	router.Run(fmt.Sprintf(":%d", conf.AppPort))
+	router.Run(fmt.Sprintf(":%d", cfglib.DefaultConf.AppPort))
 }
