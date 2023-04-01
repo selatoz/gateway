@@ -9,10 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 
-	"selatoz/api/auth"
-	"selatoz/middleware/auth"
-	"selatoz/internal/user/svc"
-	"selatoz/internal/token/svc"
+	"github.com/selatoz/gateway/api/auth"
+	"github.com/selatoz/gateway/middleware/auth"
+	"github.com/selatoz/gateway/internal/user/svc"
+	"github.com/selatoz/gateway/internal/token/svc"
 )
 
 // Context represents the extended gin.Context type
